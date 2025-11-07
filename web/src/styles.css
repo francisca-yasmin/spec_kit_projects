@@ -1,0 +1,57 @@
+
+:root{
+  --bg:#f7fafc; /* very light gray */
+  --surface:#ffffff;
+  --card:#ffffff;
+  --muted:#6b7280; /* slate */
+  --accent:#0ea5a3; /* teal */
+  --accent-2:#2563eb; /* blue */
+  --glass: rgba(2,6,23,0.03);
+  --radius:12px;
+  --text:#0f1724;
+}
+
+*{box-sizing:border-box}
+html,body,#root{height:100%}
+body{margin:0;font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+
+.app{max-width:1200px;margin:24px auto;padding:20px}
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px}
+header h1{margin:0;font-size:1.5rem;color:var(--accent-2);letter-spacing:0.2px}
+header .sub{color:var(--muted);font-size:0.9rem}
+
+/* Albums grid (cards) */
+.album-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:18px}
+.album-card{background:var(--card);border-radius:var(--radius);padding:14px;display:flex;flex-direction:column;gap:10px;cursor:pointer;transition:transform .12s ease,box-shadow .12s ease;border:1px solid rgba(15,23,36,0.04)}
+.album-card:hover{transform:translateY(-6px);box-shadow:0 10px 30px rgba(2,6,23,0.08)}
+.album-cover{height:120px;background:linear-gradient(180deg,#eef2ff,#ffffff);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:26px}
+.album-meta{display:flex;justify-content:space-between;align-items:center}
+.album-title{font-weight:700;color:var(--text)}
+.album-count{font-size:0.85rem;color:var(--muted)}
+
+/* Mosaic / album view */
+.album-view{display:block}
+.mosaic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.mosaic-item{position:relative;border-radius:10px;overflow:hidden;background:#f8fafc;border:1px solid rgba(15,23,36,0.04)}
+.mosaic-item img{display:block;width:100%;height:140px;object-fit:cover;transition:transform .25s ease}
+.mosaic-item:hover img{transform:scale(1.03)}
+
+/* Lightbox */
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;z-index:1200}
+.lightbox .panel{max-width:90vw;max-height:90vh;border-radius:12px;overflow:hidden;background:var(--surface)}
+.lightbox img{width:100%;height:auto;display:block}
+
+/* Buttons / controls */
+button{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;border:none;padding:10px 14px;border-radius:10px;font-weight:600;cursor:pointer}
+button:focus{outline:3px solid rgba(37,99,235,0.12)}
+
+/* Small screens */
+@media (max-width:640px){
+  .album-cover{height:100px}
+  .mosaic-item img{height:110px}
+  .app{padding:12px}
+}
+
+/* Accessibility helpers */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+

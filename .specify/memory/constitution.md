@@ -1,50 +1,105 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report
+
+Version change: TEMPLATE -> 1.0.0
+Modified principles:
+- [PRINCIPLE_1_NAME] (placeholder) -> I. Clean Code (Código Limpo)
+- [PRINCIPLE_2_NAME] (placeholder) -> II. Performance Requirements (Desempenho)
+- [PRINCIPLE_3_NAME] (placeholder) -> III. User Experience (Experiência do Usuário)
+- [PRINCIPLE_4_NAME] (placeholder) -> IV. Test-First & Contracts
+- [PRINCIPLE_5_NAME] (placeholder) -> V. Observability, Versioning & Simplicity
+Added sections: Non-Functional Requirements, Development Workflow (content populated)
+Removed sections: none
+Templates requiring updates:
+- .specify/templates/plan-template.md ✅ updated
+- .specify/templates/spec-template.md ✅ updated
+- .specify/templates/tasks-template.md ✅ updated
+- .specify/templates/agent-file-template.md ✅ updated
+- .specify/templates/checklist-template.md ⚠ pending (no structural changes applied)
+Follow-up TODOs:
+- RATIFICATION_DATE: TODO(RATIFICATION_DATE) — original adoption date not available; please confirm and replace.
+-->
+
+# Galeria Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Clean Code (Código Limpo)
+O código deve ser legível, previsível e fácil de manter. Isso inclui: nomes claros e consistentes,
+funções pequenas e com única responsabilidade, documentação mínima explicativa onde necessário,
+comentários apenas para justificativas (não para explicar código óbvio). Refatoração contínua é
+exigida. Ferramentas de qualidade (linters, formatação automática, análise estática) devem estar
+ativadas no CI e passarem como pré-requisito para merge. Revisões de código obrigatórias focam em
+clareza, simplicidade e aderência aos padrões de projeto adotados.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+Rationale: Investir em qualidade de código reduz custo de manutenção, acelera on-boarding e
+melhora a segurança do produto.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### II. Performance Requirements (Desempenho)
+Todo trabalho com impacto em caminho crítico de execução deve ter metas de desempenho mensuráveis
+e verificáveis. Exemplos de metas: latência p95 < 200ms, uso de memória < 150MB por processo, ou
+capacidade de X req/s para cargas esperadas. Essas metas devem constar na spec da feature (campo
+"Performance Goals") e exportadas para benchmarks e testes de carga automatizados. Mudanças que
+afetem performance devem incluir: benchmark antes/depois, análise de regressão e plano de mitigação.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+Rationale: Requisitos de desempenho previsíveis preservam a experiência do usuário e evitam
+surpresas em produção.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### III. User Experience (Experiência do Usuário)
+As decisões de produto e engenharia priorizam jornadas de usuário de maior valor. Cada feature
+deve explicar as personas afetadas, o fluxo principal (happy path) e critérios de aceitação UX
+(tempo, clareza de feedback, acessibilidade mínima). Experimentos e métricas (tempo até tarefa,
+taxa de sucesso, satisfação) orientam escolhas. Erros no cliente devem ser tratados com mensagens
+úteis; degradar graciosamente é obrigatório quando aplicável.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+Rationale: Boa UX reduz churn, diminui suporte e maximiza o valor entregue por iteração.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### IV. Test-First & Contracts
+Testes são mandatórios para todas as mudanças de comportamento: testes unitários, testes de
+integração/contrato e, quando aplicável, testes end-to-end. Para APIs públicas e integrações,
+contratos (ou pact tests) devem existir e ser verificados em CI. Testes de performance são parte
+do contrato sempre que a feature define metas de desempenho.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+Rationale: Garantir regressões mínimas e permitir refatorações seguras.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### V. Observability, Versioning & Simplicity
+Sistemas precisam ser observáveis: logs estruturados, tracing mínimamente instrumentado e métrica
+de saúde. A versão semântica (semver) é requerida para APIs públicas; políticas de deprecação e
+comunicação devem acompanhar breaking changes. Preferir soluções simples antes de otimizações
+prematuras (YAGNI). Quando complexidade adicional for necessária, documentar o custo-benefício.
+
+Rationale: Observabilidade reduz tempo médio de detecção/resolução; versionamento claro reduz
+impacto em consumidores.
+
+## Non-Functional Requirements
+Requisitos não-funcionais devem ser explicitados nas specs: objetivos de performance (latência,
+throughput), limites de recursos (memória/disk), requisitos de segurança mínimos, objetivos de
+disponibilidade e requisitos de compatibilidade. Cada requisito deve ter um critério de teste
+associado (ex.: benchmark, teste de carga, auditoria de segurança).
+
+## Development Workflow
+Fluxo mínimo esperado:
+
+- Criar spec com: objetivo, público, critérios de aceite (funcionais e não-funcionais), e testes
+	obrigatórios (unit/integration/perf/ux).
+- Implementar testes que representem critérios de aceite; garantir que falhem antes da implementação
+- Implementar funcionalidade respeitando os princípios (Clean Code, Performance, UX)
+- Submeter PR com descrição clara, checklist de compliance com a Constituição e evidências de testes
+- 2 revisores aprovando (pelo menos 1 técnico), aprovação de produto/UX quando a mudança afetar
+	jornadas de usuário críticas
+- Merge e monitoramento em staging; executar benchmarks e smoke tests
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+A Constituição prevalece sobre orientações locais divergentes. Alterações à Constituição exigem:
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+1. Proposta em PR descrevendo a mudança e seu impacto (incluindo tickets de migração se necessário)
+2. Revisão pública do time (mínimo 2 aprovações), ao menos 1 membro responsável por arquitetura
+3. Plano de migração ou mitigação para breaking changes
+4. Versão da constituição atualizada seguindo semver e data de emenda atualizada
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+Conformidade: PRs que tocam áreas críticas (performance, segurança, API pública) devem incluir
+uma seção "Constitution Compliance" com checklist preenchido e evidências (logs de benchmark,
+prints de testes, gravações de UX quando aplicável). Revisores confirmam o checklist antes de
+aprovar.
+
+**Version**: 1.0.0 | **Ratified**: TODO(RATIFICATION_DATE) | **Last Amended**: 2025-11-07

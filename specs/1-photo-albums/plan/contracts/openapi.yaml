@@ -1,0 +1,23 @@
+openapi: 3.0.0
+info:
+  title: Photo Albums (optional sync API)
+  version: 1.0.0
+paths:
+  /sync/albums:
+    get:
+      summary: List albums (for optional sync)
+      responses:
+        '200':
+          description: OK
+  /sync/albums/{albumId}/photos:
+    get:
+      summary: List photos in album (for optional sync)
+      parameters:
+        - name: albumId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK

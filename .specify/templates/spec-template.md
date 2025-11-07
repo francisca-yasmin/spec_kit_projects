@@ -113,3 +113,23 @@
 - **SC-002**: [Measurable metric, e.g., "System handles 1000 concurrent users without degradation"]
 - **SC-003**: [User satisfaction metric, e.g., "90% of users successfully complete primary task on first attempt"]
 - **SC-004**: [Business metric, e.g., "Reduce support tickets related to [X] by 50%"]
+
+## Constitution Compliance (MANDATORY)
+
+Every spec MUST include a dedicated "Constitution Compliance" section showing how
+the feature meets the Galeria Constitution principles. Include the following items
+explicitly:
+
+- Clean Code: agreed linters, style guides, and an explicit plan for code review
+  coverage (who signs off on code quality for this feature).
+- Performance Goals: measurable targets and acceptance tests (benchmarks or
+  load-tests) with pass/fail criteria.
+- UX Acceptance: persona mapping, happy-path time targets, and accessibility
+  considerations.
+- Test Plan: list of unit, integration, contract, E2E, and performance tests to be
+  added (with file paths) and the expected pass/fail criteria.
+- Observability Plan: required logs, metrics, and tracing points and how they are
+  validated during staging/pre-production.
+
+Specs missing this section will be considered incomplete and must be updated prior to
+implementation.

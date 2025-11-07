@@ -52,6 +52,12 @@ description: "Task list template for feature implementation"
 - [ ] T002 Initialize [language] project with [framework] dependencies
 - [ ] T003 [P] Configure linting and formatting tools
 
+*Constitution-driven task categories*: Tasks MUST include explicit items for
+the following cross-cutting concerns when relevant: code quality (linters/format),
+performance (benchmarks, load-tests), observability (logging/tracing), UX validation
+(manual or automated), and contract tests. Mark tasks that are test-first and ensure
+test tasks are present and failing before implementation tasks.
+
 ---
 
 ## Phase 2: Foundational (Blocking Prerequisites)
